@@ -4,16 +4,16 @@ import androidFilled from '@iconify/icons-ant-design/android-filled';
 import { alpha, styled } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 // utils
-import { fShortenNumber } from '../../../utils/formatNumber';
-
+import { fShortenNumber, fNumber } from '../../../utils/formatNumber';
+import ReactSession from 'react-client-session/dist/ReactSession';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   textAlign: 'center',
   padding: theme.spacing(5, 0),
-  color: theme.palette.primary.darker,
-  backgroundColor: theme.palette.primary.lighter
+  color: theme.palette.error.lighter,
+  backgroundColor: theme.palette.error.darker
 }));
 
 const IconWrapperStyle = styled('div')(({ theme }) => ({
@@ -25,7 +25,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   height: theme.spacing(8),
   justifyContent: 'center',
   marginBottom: theme.spacing(3),
-  color: theme.palette.primary.dark,
+  
   backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0)} 0%, ${alpha(
     theme.palette.primary.dark,
     0.24
@@ -34,17 +34,16 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 714000;
+const TOTAL =  0;
+;
 
 export default function AppWeeklySales() {
   return (
     <RootStyle>
-      <IconWrapperStyle>
-        <Icon icon={androidFilled} width={24} height={24} />
-      </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      
+      <Typography variant="h4">{fNumber(ReactSession.get('user_details')==undefined ? 0 : ReactSession.get('user_details').data.projectDeposits)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Weekly Sales
+        Project deposits
       </Typography>
     </RootStyle>
   );

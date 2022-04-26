@@ -1,0 +1,15 @@
+{
+    "base_api":"",
+    "base_api_https":"https://localhost:5004",
+
+    "admin":"Admin", 
+    "password":"12345678",
+
+    "email":{
+        "user_id":"user_YytPXBUVhPC4eURgEPfiR",
+        "token":"eb5bd628ee8e04245a5784065319e5a4",
+        "template":"template_2xui2an",
+        "service_id":"service_6o9vmhc"
+      }
+
+}

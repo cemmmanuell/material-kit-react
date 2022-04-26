@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { styled } from '@material-ui/core/styles';
-import { Card, Stack, Link, Container, Typography } from '@material-ui/core';
+import { Card, Stack, Link, Container, Typography, Grid } from '@material-ui/core';
 // layouts
 import AuthLayout from '../layouts/AuthLayout';
 // components
@@ -41,42 +41,50 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   return (
-    <RootStyle title="Login | Minimal-UI">
-      <AuthLayout>
-        Don’t have an account? &nbsp;
-        <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
-          Get started
+    <RootStyle title="Login | Members portal">
+      { <AuthLayout>
+        <Stack sx={{ mb:2 }}>
+       
+       
+        
+       
+        <Link underline="none" variant="subtitle2" component={RouterLink} to="/RegisterForm">
+          Register for portal access
         </Link>
-      </AuthLayout>
+       </Stack>
+      </AuthLayout>}
+
+     
 
       <MHidden width="mdDown">
         <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Hi, Welcome Back
-          </Typography>
-          <img src="/static/illustrations/illustration_login.png" alt="login" />
+          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }} />
+          <img alt="register" src="/static/devcologo.png" />
         </SectionStyle>
       </MHidden>
 
       <Container maxWidth="sm">
+       
         <ContentStyle>
           <Stack sx={{ mb: 5 }}>
             <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
+             Welcome to   KMAT Housing portal
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
           </Stack>
-          <AuthSocial />
+         
 
           <LoginForm />
 
           <MHidden width="smUp">
-            <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-              Don’t have an account?&nbsp;
-              <Link variant="subtitle2" component={RouterLink} to="register">
-                Get started
-              </Link>
-            </Typography>
+          <Stack sx={{ mb:2 }}>
+           
+        
+       
+        <Link underline="none" variant="subtitle2" component={RouterLink} to="/RegisterForm">
+          Register for portal access
+        </Link>
+            </Stack>
           </MHidden>
         </ContentStyle>
       </Container>

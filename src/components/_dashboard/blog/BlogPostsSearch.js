@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import searchFill from '@iconify/icons-eva/search-fill';
 // material
 import { styled } from '@material-ui/core/styles';
-import { Box, TextField, Autocomplete, InputAdornment } from '@material-ui/core';
+import { Box, TextField, InputAdornment } from '@material-ui/core';
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ BlogPostsSearch.propTypes = {
 export default function BlogPostsSearch({ posts }) {
   return (
     <RootStyle>
-      <Autocomplete
+      {/* <Autocomplete
         size="small"
         disablePortal
         popupIcon={null}
@@ -75,7 +75,7 @@ export default function BlogPostsSearch({ posts }) {
             }}
           />
         )}
-      />
+      /> */}
     </RootStyle>
   );
 }

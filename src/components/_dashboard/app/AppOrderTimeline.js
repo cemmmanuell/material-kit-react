@@ -1,5 +1,7 @@
 import faker from 'faker';
 import PropTypes from 'prop-types';
+import { fShortenNumber, fNumber } from '../../../utils/formatNumber';
+import ReactSession from 'react-client-session/dist/ReactSession';
 // material
 import { Card, Typography, CardHeader, CardContent } from '@material-ui/core';
 import {
@@ -15,42 +17,10 @@ import { fDateTime } from '../../../utils/formatTime';
 
 // ----------------------------------------------------------------------
 
-const TIMELINES = [
-  {
-    title: '1983, orders, $4220',
-    time: faker.date.past(),
-    type: 'order1'
-  },
-  {
-    title: '12 Invoices have been paid',
-    time: faker.date.past(),
-    type: 'order2'
-  },
-  {
-    title: 'Order #37745 from September',
-    time: faker.date.past(),
-    type: 'order3'
-  },
-  {
-    title: 'New order placed #XF-2356',
-    time: faker.date.past(),
-    type: 'order4'
-  },
-  {
-    title: 'New order placed #XF-2346',
-    time: faker.date.past(),
-    type: 'order5'
-  }
-];
-
-// ----------------------------------------------------------------------
-
-OrderItem.propTypes = {
-  item: PropTypes.object,
-  isLast: PropTypes.bool
-};
 
 function OrderItem({ item, isLast }) {
+
+ 
   const { type, title, time } = item;
   return (
     <TimelineItem>
@@ -70,7 +40,7 @@ function OrderItem({ item, isLast }) {
       <TimelineContent>
         <Typography variant="subtitle2">{title}</Typography>
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-          {fDateTime(time)}
+          {time}
         </Typography>
       </TimelineContent>
     </TimelineItem>
@@ -78,6 +48,37 @@ function OrderItem({ item, isLast }) {
 }
 
 export default function AppOrderTimeline() {
+
+  const TIMELINES = [
+    {
+      title: 'Junior savings',
+      time: fNumber(ReactSession.get('user_details')==undefined ? 0 : ReactSession.get('user_details').data.juniorSavings),
+      type: 'order1'
+    },
+    {
+      title: 'Property savings',
+      time: fNumber(ReactSession.get('user_details')==undefined ? 0 : ReactSession.get('user_details').data.propertySavings),
+      type: 'order2'
+    },
+    {
+      title: 'Holiday savings',
+      time: fNumber(ReactSession.get('user_details')==undefined ? 0 : ReactSession.get('user_details').data.holidaySavings),
+      type: 'order3'
+    },
+    {
+      title: 'Insurance contribution',
+      time:fNumber(ReactSession.get('user_details')==undefined ? 0 : ReactSession.get('user_details').data.insuranceContribution),
+      type: 'order4'
+    }
+  ];
+  
+  // ----------------------------------------------------------------------
+  
+  OrderItem.propTypes = {
+    item: PropTypes.object,
+    isLast: PropTypes.bool
+  };
+  
   return (
     <Card
       sx={{
@@ -86,7 +87,7 @@ export default function AppOrderTimeline() {
         }
       }}
     >
-      <CardHeader title="Order Timeline" />
+      <CardHeader title="Other accounts" />
       <CardContent>
         <Timeline>
           {TIMELINES.map((item, index) => (

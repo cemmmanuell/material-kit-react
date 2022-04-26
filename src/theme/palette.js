@@ -29,18 +29,18 @@ const GREY = {
 };
 
 const PRIMARY = {
-  lighter: '#C8FACD',
+  lighter: '#faa23e',
   light: '#5BE584',
-  main: '#00AB55',
+  main: '#faa23e',
   dark: '#007B55',
-  darker: '#005249',
+  darker: '#faa23e',
   contrastText: '#fff'
 };
 const SECONDARY = {
-  lighter: '#D6E4FF',
+  lighter: '#faa23e',
   light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
+  main: '#af2025',
+  dark: '#af2025',
   darker: '#091A7A',
   contrastText: '#fff'
 };
@@ -61,7 +61,7 @@ const SUCCESS = {
   contrastText: GREY[800]
 };
 const WARNING = {
-  lighter: '#FFF7CD',
+  lighter: '#FF8000',
   light: '#FFE16A',
   main: '#FFC107',
   dark: '#B78103',
@@ -72,8 +72,8 @@ const ERROR = {
   lighter: '#FFE7D9',
   light: '#FFA48D',
   main: '#FF4842',
-  dark: '#B72136',
-  darker: '#7A0C2E',
+  dark: '#FF0000',
+  darker: '#FF0000',
   contrastText: '#fff'
 };
 

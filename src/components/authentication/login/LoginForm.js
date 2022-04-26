@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import {ReactSession} from 'react-client-session';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import config from "../../../config.json";
+import axios from 'axios';
 // material
 import {
   Link,
@@ -18,46 +21,118 @@ import {
 import { LoadingButton } from '@material-ui/lab';
 
 // ----------------------------------------------------------------------
+import {AppStateContext} from './../../../Context';
+
 
 export default function LoginForm() {
+  const {handleAuthenticateUser, isTimedOut} = useContext(AppStateContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [isSubmitting, setIssubmittiong]=useState(false);
+  const { createProxyMiddleware } = require('http-proxy-middleware');
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    user_name: Yup.string().required('Member no is required'),
     password: Yup.string().required('Password is required')
   });
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      user_name: '',
       password: '',
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    onSubmit: (values) => {
+      setIssubmittiong(true);
+      if(config.admin==values.user_name && config.password==values.password){
+        const htmlheaders={
+          
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+         
+        }
+        axios.post(`${config.base_api}/adminlogin`,{
+          "user_name":values.user_name,
+          "password":values.password,
+          
+        },
+         {headers:htmlheaders})
+        .then ((result)=>{console.log("result",result);
+          
+        ReactSession.set("user_details", result);
+        handleAuthenticateUser();
+         navigate('/dashboard');
+         
+       }
+        )
+        .catch((error)=> console.log("Error message",error))
+        
+
+      }else{
+     const htmlheaders1={
+        'Acces-Control-Allow-Origin': config.base_api,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+       
+      }
+    
+      axios.post(`${config.base_api}/login`,{
+        "userName":values.user_name,
+        "password":values.password,
+        
+      },{headers:htmlheaders1})
+      .then ((result)=>{
+        console.log("result",result);
+        if (result.status==401){
+          alert('Invalid credentials')
+        }
+        if (result.status==415){
+          alert('Invalid credentials')
+        } 
+       if(result.status==200){ 
+     
+        result.data.graphData.forEach(element => {
+          result.data.graphHeader.push(element);
+        });
+
+      ReactSession.set("user_details", result);
+      handleAuthenticateUser();
+      navigate('/dashboard');
+       }
+     }
+      )
+      .catch((error)=> { console.log("Error message",error)
+      alert('Authentification failed');
+      setIssubmittiong(false);
+       }); 
+       
+      }
     }
+    
+
+     
+    
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, values,  handleSubmit, getFieldProps } = formik;
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
 
   return (
+    <>
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField
             fullWidth
             autoComplete="username"
-            type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
+            type="text"
+            label="ID NUMBER"
+            {...getFieldProps('user_name')}
+            error={Boolean(touched.user_name && errors.user_name)}
+            helperText={touched.user_name && errors.user_name}
           />
 
           <TextField
@@ -86,7 +161,7 @@ export default function LoginForm() {
             label="Remember me"
           />
 
-          <Link component={RouterLink} variant="subtitle2" to="#">
+          <Link component={RouterLink} to="/RegisterForm" variant="subtitle2">
             Forgot password?
           </Link>
         </Stack>
@@ -102,5 +177,8 @@ export default function LoginForm() {
         </LoadingButton>
       </Form>
     </FormikProvider>
+   
+   
+    </>
   );
 }

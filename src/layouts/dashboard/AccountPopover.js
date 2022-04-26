@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
@@ -7,7 +8,9 @@ import { Link as RouterLink } from 'react-router-dom';
 // material
 import { alpha } from '@material-ui/core/styles';
 import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@material-ui/core';
+import {ReactSession} from 'react-client-session';
 // components
+import { Navigate, useRoutes } from 'react-router-dom';
 import MenuPopover from '../../components/MenuPopover';
 //
 import account from '../../_mocks_/account';
@@ -23,7 +26,7 @@ const MENU_OPTIONS = [
   {
     label: 'Profile',
     icon: personFill,
-    linkTo: '#'
+    linkTo: '/dashboard/profile'
   },
   {
     label: 'Settings',
@@ -32,20 +35,35 @@ const MENU_OPTIONS = [
   }
 ];
 
+
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const history = useNavigate();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-
+  const [user_details, setUser_details]=useState(ReactSession.get('user_details'));
+ 
   const handleOpen = () => {
+    
     setOpen(true);
+    const d= ReactSession.get('user_details');
+    
+    setUser_details(d);
+    
   };
   const handleClose = () => {
     setOpen(false);
   };
+  const handleLock=()=>{
+    window.history.pushState(null, "", window.location.href);
+  
+    history('/Login');
+  }
 
   return (
+ 
+  
     <>
       <IconButton
         ref={anchorRef}
@@ -78,10 +96,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {account.displayName}
+          {user_details==undefined  ? <Navigate to="/login" /> : user_details.data.name }
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+          { user_details==undefined  ? <Navigate to="/login" /> : user_details.data.email} 
           </Typography>
         </Box>
 
@@ -110,7 +128,9 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button fullWidth color="inherit" variant="outlined"
+          onClick={handleLock}
+          >
             Logout
           </Button>
         </Box>

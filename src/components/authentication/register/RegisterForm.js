@@ -1,107 +1,166 @@
-import * as Yup from 'yup';
-import { useState } from 'react';
-import { Icon } from '@iconify/react';
-import { useFormik, Form, FormikProvider } from 'formik';
-import eyeFill from '@iconify/icons-eva/eye-fill';
-import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
-import { useNavigate } from 'react-router-dom';
-// material
-import { Stack, TextField, IconButton, InputAdornment } from '@material-ui/core';
-import { LoadingButton } from '@material-ui/lab';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import { FormUserDetails } from "./FormUserDetails";
+import FormPersonalDetails from "./FormPersonalDetails";
+import RegisterPortal from "./registerPortal";
+import { ConfirmPortal } from "./confirmPortal";
+import Confirm from "./Confirm";
+import Success from "./Success";
+import config from "../../../config.json";
+import axios from 'axios';
+import LoginForm from './../../authentication/login/LoginForm';
 
-// ----------------------------------------------------------------------
+export class RegistrationForm extends Component {
+  state = {
+    step: 1
+  
+   
 
-export default function RegisterForm() {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  };
+ 
+  //Proceed to the next step
+  nextStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step + 1,
+    });
+  };
 
-  const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('First name required'),
-    lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
-  });
+  // go back to previous step
+  prevStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step - 1,
+    });
+  };
 
-  const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: ''
-    },
-    validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+  //handle fields change
+  handleChange = (input) => (e) => {
+    this.setState({ [input]: e.target.value });
+  };
+  
+  register=()=>
+  {
+    const htmlheaders={
+          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+     
     }
-  });
+    axios.post(`${config.base_api}/Register`,{
+     
+      "idno":this.state.idNumber
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+      
+      
+    },
+     {headers:htmlheaders})
+    .then ((result)=>
+    
+    {
+      console.log("result",result);
+      this.setState({otp:result.data.otp});
+      if(result.status==200){
+        //const navigate = useNavigate();
+       this.nextStep();
+      }else
+      {
+        alert('You have entered incorrect details');
+      }
 
-  return (
-    <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <TextField
-              fullWidth
-              label="First name"
-              {...getFieldProps('firstName')}
-              error={Boolean(touched.firstName && errors.firstName)}
-              helperText={touched.firstName && errors.firstName}
-            />
+    }
+  
+  ).catch((error)=> {
+     console.log("Error message",error);
+     alert('Error occured please try again');
+    });
+  
+  }
 
-            <TextField
-              fullWidth
-              label="Last name"
-              {...getFieldProps('lastName')}
-              error={Boolean(touched.lastName && errors.lastName)}
-              helperText={touched.lastName && errors.lastName}
-            />
-          </Stack>
+  confirm=()=>
+  {
+    if(this.password!==this.confirmPassword){
+      alert('Passwords do not match');
+    }
+    const htmlheaders={
+          
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+     
+    }
+    axios.post(`${config.base_api}/Confirm_registration`,{
+      "userName":this.state.idNumber,
+      "otp":this.state.otp,
+      "password":this.state.password
+      
+      
+    },
+     {headers:htmlheaders})
+    .then ((result)=>
+    
+    {
+      console.log("result",result);
+      this.setState({otp:result.data.otp});
+      this.nextStep();
+     // navigate('/login');
 
-          <TextField
-            fullWidth
-            autoComplete="username"
-            type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
+     }
+  
+  ).catch((error)=> {
+     console.log("Error message",error);
+     alert(error);
+    });
+  
+  }
+
+  render() {
+    const { step } = this.state;
+    const {
+      memberNo, 
+      idNumber,
+      otp,
+      password, 
+      confirmPassword
+     
+    } = this.state;
+    const values = {
+      memberNo, 
+      idNumber,
+      otp,
+      password, 
+      confirmPassword
+     
+    };
+
+    switch (step) {
+      case 1:
+        return (
+          <RegisterPortal
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            register={this.register}
+            values={values}
           />
-
-          <TextField
-            fullWidth
-            autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            label="Password"
-            {...getFieldProps('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
-                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-            error={Boolean(touched.password && errors.password)}
-            helperText={touched.password && errors.password}
+        );
+      case 2:
+        return (
+          <ConfirmPortal
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            submit={this.post}
+            confirm={this.confirm}
+            handleChange={this.handleChange}
+            values={values}
           />
-
-          <LoadingButton
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            loading={isSubmitting}
-          >
-            Register
-          </LoadingButton>
-        </Stack>
-      </Form>
-    </FormikProvider>
-  );
+        );
+      case 3:
+        return (
+        <LoginForm />
+         ) ;
+     
+        
+    }
+  }
 }
+
+export default RegistrationForm;
