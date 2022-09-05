@@ -77,7 +77,7 @@ export default function Notifications() {
  
     return (
        <Card >
-          <CardHeader title="Housing Notice Board"/>
+          <CardHeader title="Notice board"/>
 
           <CardContent>
           <Slider  {...settings}>

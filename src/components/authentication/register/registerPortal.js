@@ -27,9 +27,21 @@ export class RegisterPortal extends Component {
            
            
             <TextField
-              placeholder="Enter your ID number"
-              label="ID NUMBER"
-              onChange={handleChange("idNumber")}
+              placeholder="Enter your account number"
+              label="Account number"
+              onChange={handleChange("userName")}
+             
+              margin="normal"
+              fullWidth
+            />
+           
+           
+           <br/>
+
+           <TextField
+              placeholder="Enter your account email"
+              label="Email"
+              onChange={handleChange("email")}
              
               margin="normal"
               fullWidth

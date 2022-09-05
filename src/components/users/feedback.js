@@ -79,7 +79,7 @@ export default function Feedback() {
        </Grid>
        <Grid item xs={6} sm={6} md={5}>
        <h2 style={{color:'#229A16'}}>{props.reply}</h2>
-         {props.reply=="" ? "" :   <h5 style={{color:'#229A16'}}>KMAT Housing replied</h5>}
+         {props.reply=="" ? "" :   <h5 style={{color:'#229A16'}}>ACk junior replied</h5>}
        </Grid>
        </div>
       )
@@ -146,7 +146,7 @@ export default function Feedback() {
   
    const message=useRef('');
     return (
-      <Page title="User feedback | Members portal">
+      <Page title="User feedback | Parents portal">
       <Grid xs={12} sm={12} md={12}>
         
         <Grid spacing={2} container xs={6} sm={12} md={12}>

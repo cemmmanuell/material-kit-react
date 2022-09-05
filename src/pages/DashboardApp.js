@@ -29,7 +29,7 @@ export default function DashboardApp() {
     
     <>
    
-    <Page title="Dashboard |Members portal">
+    <Page title="Dashboard |Patents portal">
       
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
@@ -40,15 +40,7 @@ export default function DashboardApp() {
         <Grid item xs={12} sm={6} md={3}>
             <AppBugReports />
          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppItemOrders />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWeeklySales />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppNewUsers />
-          </Grid>
+         
           
           
 
@@ -59,7 +51,7 @@ export default function DashboardApp() {
           
           <Grid item xs={8} sm={8} md={12}>
            
-            <MultiLineChart />
+           
             <br />
             <Notifications />
            

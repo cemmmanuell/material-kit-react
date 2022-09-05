@@ -58,72 +58,9 @@ export default function DashboardLayout() {
         path: '/dashboard/app',
        
         icon: <FcHome width={220} height={22} />
-      },
-      {
-        title: 'Transactions',
-        path: '',
-        icon: <FcCollaboration width={22} height={22}  />,
-        children: [
-          {
-            title: 'Ministatement',
-            path: '/Dashboard/ministatement',
-            icon: getIcon(peopleFill)
-          }
-        
-        ]
-      },
-      {
-        title: 'Loans',
-        path: '',
-        icon: < FcAddressBook width={22} height={22} />,
-        children: [
-          {
-            title: 'Apply new loan',
-            path: '/dashboard/apply_new_loan',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Open loans',
-            path: '/dashboard/Open_loans',
-            icon: getIcon(peopleFill)
-          },
-
-          {
-            title: 'Pending loans',
-            path: '/dashboard/pending_loans',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Processed loans',
-            path: '/dashboard/processed_loans',
-            icon: getIcon(peopleFill)
-          }
-        
-        ]
-      },
-      {
-        title: 'Guarantorship',
-        path: '', 
-        icon: < FcAssistant width={22} height={22} />,
-        children: [
-          {
-            title: 'Guarantee loan ',
-            path: '/dashboard/approve_gurarantee',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Loans guaranteed',
-            path: '/dashboard/loans_guranteed',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Guaranteed loans',
-            path: '/dashboard/guranteed_loans',
-            icon: getIcon(peopleFill)
-          }
-        ]
-      },
-     
+      }
+    
+     ,
       {
         title: 'Statements',
         path: '', 
@@ -131,7 +68,7 @@ export default function DashboardLayout() {
         children: [
           {
             title: 'Detailed account statement',
-            path: '',
+            path: '/Dashboard/memberstatement',
             icon: getIcon(peopleFill)
           }
         ]
@@ -143,39 +80,13 @@ export default function DashboardLayout() {
         icon: <FcBarChart width={22} height={22} /> ,
         children: [
           {
-            title: 'Chatroom',
-            path: '',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Suggestion box',
-            path: '',
-            icon: getIcon(peopleFill)
-          }
-        ]
-      },
-      {
-        title: 'Profile settings',
-        path: '',
-        icon: <FcFolder />,
-        children: [
-          {
-            title: 'Details change request',
-            path: '/dashboard/details_change_request',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Change password',
-            path: '/dashboard/change_password',
-            icon: getIcon(peopleFill)
-          },
-          {
-            title: 'Activity log',
-            path: '/dashboard/change_password',
+            title: 'Feedback',
+            path: '/Dashboard/feedback',
             icon: getIcon(peopleFill)
           }
         ]
       }
+    
       
       
      

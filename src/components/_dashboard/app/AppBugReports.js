@@ -43,9 +43,9 @@ export default function AppBugReports() {
     <RootStyle>
       
       
-      <Typography variant="h4">{fNumber(ReactSession.get('user_details')!=undefined ? ReactSession.get('user_details').data.currentShares : 0)}</Typography>
+      <Typography variant="h4">{fNumber(ReactSession.get('user_details')!=undefined ? ReactSession.get('user_details').data.outstandingBalance : 0)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-       Deposits
+        Balance
       </Typography>
     </RootStyle>
   );

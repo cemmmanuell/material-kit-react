@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
   return (
     
-    <Page title="Member statement | SMS portal">
+    <Page title="Fee statetent | portal">
        
       <div>
      

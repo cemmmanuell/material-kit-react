@@ -70,7 +70,7 @@ export default function RegForm() {
           <RegistrationForm />
 
           <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-            By registering, I agree to Devco Portal&nbsp;
+            By registering, I agree to ARK JUNIOR Portal&nbsp;
             <Link underline="always" sx={{ color: 'text.primary' }}>
               Terms of Service
             </Link>

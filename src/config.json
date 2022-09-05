@@ -1,5 +1,5 @@
 {
-    "base_api":"",
+    "base_api":"/api",
     "base_api_https":"https://localhost:5004",
 
     "admin":"Admin", 

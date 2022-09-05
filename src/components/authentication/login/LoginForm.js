@@ -91,9 +91,7 @@ export default function LoginForm() {
         } 
        if(result.status==200){ 
      
-        result.data.graphData.forEach(element => {
-          result.data.graphHeader.push(element);
-        });
+       
 
       ReactSession.set("user_details", result);
       handleAuthenticateUser();
@@ -129,7 +127,8 @@ export default function LoginForm() {
             fullWidth
             autoComplete="username"
             type="text"
-            label="ID NUMBER"
+            label="User name"
+            InputLabelProps={{ shrink: true }} 
             {...getFieldProps('user_name')}
             error={Boolean(touched.user_name && errors.user_name)}
             helperText={touched.user_name && errors.user_name}
@@ -140,6 +139,7 @@ export default function LoginForm() {
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
             label="Password"
+            InputLabelProps={{ shrink: true }} 
             {...getFieldProps('password')}
             InputProps={{
               endAdornment: (
