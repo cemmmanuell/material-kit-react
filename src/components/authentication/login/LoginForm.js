@@ -130,6 +130,7 @@ export default function LoginForm() {
             autoComplete="username"
             type="text"
             label="ID NUMBER"
+            InputLabelProps={{ shrink: true }} 
             {...getFieldProps('user_name')}
             error={Boolean(touched.user_name && errors.user_name)}
             helperText={touched.user_name && errors.user_name}
@@ -140,6 +141,7 @@ export default function LoginForm() {
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
             label="Password"
+            InputLabelProps={{ shrink: true }} 
             {...getFieldProps('password')}
             InputProps={{
               endAdornment: (

@@ -52,7 +52,7 @@ const Cht=()=>{
     return (
       <div>
         <Card>  
-        <CardHeader title="Loans progression chart" />
+        <CardHeader title="Progression chart" />
         <Suspense fallback="loading..." >
           {datas!=[] ? <Cht/>  : "Loading......" }
        </Suspense>

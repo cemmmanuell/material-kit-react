@@ -79,7 +79,7 @@ export default function Feedback() {
        </Grid>
        <Grid item xs={6} sm={6} md={5}>
        <h2 style={{color:'#229A16'}}>{props.reply}</h2>
-         {props.reply=="" ? "" :   <h5 style={{color:'#229A16'}}>KMAT Housing replied</h5>}
+         {props.reply=="" ? "" :   <h5 style={{color:'#229A16'}}>Dhamini sacco replied</h5>}
        </Grid>
        </div>
       )

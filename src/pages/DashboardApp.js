@@ -58,8 +58,8 @@ export default function DashboardApp() {
         <Grid container spacing={3}>
           
           <Grid item xs={8} sm={8} md={12}>
-           
-            <MultiLineChart />
+{/*            
+            <MultiLineChart /> */}
             <br />
             <Notifications />
            
